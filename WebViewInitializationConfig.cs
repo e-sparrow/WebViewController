@@ -7,13 +7,13 @@ namespace Utils.WebView
     {
         public WebViewInitializationConfig
         (
-                bool useIFrame, 
-                bool alertDialogEnabled, 
-                bool cameraAccessRequired,
-                bool microphoneAccessRequired,
-                bool scrollbarsVisibility,
-                int textScale, 
-                EWebViewRequestType requestType, 
+                bool useIFrame = false, 
+                bool alertDialogEnabled = false, 
+                bool cameraAccessRequired = false,
+                bool microphoneAccessRequired = false,
+                bool scrollbarsVisibility = false,
+                int textScale = 100, 
+                EWebViewRequestType requestType = EWebViewRequestType.UnityWebRequest, 
                 
                 IWebViewHookPattern hookPattern = null, 
                 IWebViewBasicAuthInfo basicAuthInfo = null, 
