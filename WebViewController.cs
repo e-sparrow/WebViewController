@@ -1,15 +1,14 @@
 using System;
 using System.Collections;
+using Birdhouse.Features.Wrappers.WebView.Enums;
+using Birdhouse.Features.Wrappers.WebView.Interfaces;
 using UnityEngine;
 using UnityEngine.Networking;
-using Utils.WebView.Enums;
-using Utils.WebView.Interfaces;
-using Zenject;
 using Object = UnityEngine.Object;
 
-namespace Utils.WebView
+namespace Birdhouse.Features.Wrappers.WebView
 {
-    public class WebViewController : IWebViewController, IInitializable
+    public class WebViewController : IWebViewController
     {
         public WebViewController(IWebViewInitializationConfig config, WebViewObject instance = null)
         {
@@ -98,6 +97,26 @@ namespace Utils.WebView
         {
             _webViewObject.Value.StopAllCoroutines();
             _webViewObject.Value.StartCoroutine(OpenPageCoroutine(url));
+        }
+
+        public void GoBack()
+        {
+            if (_webViewObject.Value.CanGoBack())
+            {
+                _webViewObject.Value.GoBack();
+            }
+            
+            Debug.LogWarning($"<color=red><b>Can't</b></color> go back!");
+        }
+
+        public void GoForward()
+        {
+            if (_webViewObject.Value.CanGoForward())
+            {
+                _webViewObject.Value.GoForward();
+            }
+            
+            Debug.LogWarning($"<color=red><b>Can't</b></color> go forward!");
         }
 
         private WebViewObject GetWebViewObject()

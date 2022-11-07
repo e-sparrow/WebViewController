@@ -1,4 +1,4 @@
-namespace Utils.WebView.Interfaces
+namespace Birdhouse.Features.Wrappers.WebView.Interfaces
 {
     public interface IWebViewMargins
     {

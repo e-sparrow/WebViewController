@@ -1,6 +1,6 @@
-using Utils.WebView.Interfaces;
+using Birdhouse.Features.Wrappers.WebView.Interfaces;
 
-namespace Utils.WebView
+namespace Birdhouse.Features.Wrappers.WebView
 {
     public readonly struct WebViewHookPattern : IWebViewHookPattern
     {
