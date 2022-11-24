@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace Birdhouse.Features.Wrappers.WebView
+namespace Birdhouse.Extended.WebView
 {
     public class WebViewException : Exception
     {

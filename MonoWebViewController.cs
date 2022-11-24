@@ -1,21 +1,23 @@
 using System.Collections;
-using Birdhouse.Features.Wrappers.WebView.Interfaces;
+using Birdhouse.Extended.WebView.Interfaces;
 using UnityEngine;
 
-namespace Birdhouse.Features.Wrappers.WebView
+namespace Birdhouse.Extended.WebView
 {
     [AddComponentMenu("ESparrow/MonoWebViewController")]
     public class MonoWebViewController : MonoBehaviour, IWebViewController
     {
         [SerializeField] private SerializableWebViewInitializationConfig config;
+        
         [SerializeField] private bool enableBackButton;
+        [SerializeField] private bool canReturnToGame;
 
         [SerializeField] private WebViewObject webViewObject;
 
         private IWebViewController _innerController;
-        private bool _isInitialized = false;
 
         private Coroutine _lifetimeCoroutine;
+        private bool _isInitialized = false;
         
         private void Awake()
         {
@@ -43,27 +45,77 @@ namespace Birdhouse.Features.Wrappers.WebView
             _lifetimeCoroutine = StartCoroutine(WebViewLifetimeCoroutine());
         }
 
-        public void GoBack()
+        public IWebViewController SetVisibility(bool isVisible)
         {
-            _innerController.GoBack();
+            _innerController.SetVisibility(isVisible);
+            return this;
         }
 
-        public void GoForward()
+        public IWebViewController SetPaused(bool isPaused)
         {
-            _innerController.GoForward();
+            _innerController.SetPaused(isPaused);
+            return this;
+        }
+
+        public IWebViewController ClearCache(bool includeDiskFiles)
+        {
+            _innerController.ClearCache(includeDiskFiles);
+            return this;
+        }
+
+        public IWebViewController ClearCookies()
+        {
+            _innerController.ClearCookies();
+            return this;
+        }
+
+        public IWebViewController Reload()
+        {
+            _innerController.Reload();
+            return this;
+        }
+
+        public bool GoBack()
+        {
+            var result = _innerController.GoBack();
+            if (result)
+            {
+                _innerController.GoBack();
+
+                if (canReturnToGame)
+                {
+                    _innerController.SetVisibility(false);
+                }
+            }
+            
+            return result;
+        }
+
+        public bool GoForward()
+        {
+            var result = _innerController.GoForward();
+            return result;
+        }
+
+        public string GetCookies(string url)
+        {
+            var result = _innerController.GetCookies(url);
+            return result;
         }
 
         private IEnumerator WebViewLifetimeCoroutine()
         {
-            while (true)
+            while (Application.isPlaying)
             {
-                if (enableBackButton && UnityEngine.Input.GetKeyDown(KeyCode.Escape))
+                if (enableBackButton && Input.GetKeyDown(KeyCode.Escape))
                 {
-                    _innerController.GoBack();    
+                    GoBack();    
                 }
                 
                 yield return null;
             }
         }
+        
+        public WebViewObject Value => _innerController.Value;
     }
 }

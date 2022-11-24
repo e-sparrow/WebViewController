@@ -1,6 +1,6 @@
-using Birdhouse.Features.Wrappers.WebView.Interfaces;
+using Birdhouse.Extended.WebView.Interfaces;
 
-namespace Birdhouse.Features.Wrappers.WebView
+namespace Birdhouse.Extended.WebView
 {
     public readonly struct WebViewBasicAuthInfo : IWebViewBasicAuthInfo
     {

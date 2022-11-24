@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
-using Birdhouse.Features.Wrappers.WebView.Enums;
-using Birdhouse.Features.Wrappers.WebView.Interfaces;
+using Birdhouse.Extended.WebView.Enums;
+using Birdhouse.Extended.WebView.Interfaces;
 using UnityEngine;
 using UnityEngine.Networking;
 using Object = UnityEngine.Object;
 
-namespace Birdhouse.Features.Wrappers.WebView
+namespace Birdhouse.Extended.WebView
 {
     public class WebViewController : IWebViewController
     {
@@ -99,24 +99,78 @@ namespace Birdhouse.Features.Wrappers.WebView
             _webViewObject.Value.StartCoroutine(OpenPageCoroutine(url));
         }
 
-        public void GoBack()
+        public IWebViewController SetVisibility(bool isVisible)
         {
-            if (_webViewObject.Value.CanGoBack())
+            _webViewObject.Value.SetVisibility(isVisible);
+            return this;
+        }
+
+        public IWebViewController SetPaused(bool isPaused)
+        {
+            if (isPaused)
+            {
+                _webViewObject.Value.Pause();
+            }
+            else
+            {
+                _webViewObject.Value.Resume();
+            }
+
+            return this;
+        }
+
+        public IWebViewController ClearCache(bool includeDiskFiles)
+        {
+            _webViewObject.Value.ClearCache(includeDiskFiles);
+            return this;
+        }
+
+        public IWebViewController ClearCookies()
+        {
+            _webViewObject.Value.ClearCookies();
+            return this;
+        }
+
+        public IWebViewController Reload()
+        {
+            _webViewObject.Value.Reload();
+            return this;
+        }
+
+        public bool GoBack()
+        {
+            var result = _webViewObject.Value.CanGoBack();
+            if (result)
             {
                 _webViewObject.Value.GoBack();
             }
-            
-            Debug.LogWarning($"<color=red><b>Can't</b></color> go back!");
+            else
+            {
+                Debug.LogWarning($"<color=red><b>Can't</b></color> go back!");   
+            }
+
+            return result;
         }
 
-        public void GoForward()
+        public bool GoForward()
         {
-            if (_webViewObject.Value.CanGoForward())
+            var result = _webViewObject.Value.CanGoForward();
+            if (result)
             {
                 _webViewObject.Value.GoForward();
             }
-            
-            Debug.LogWarning($"<color=red><b>Can't</b></color> go forward!");
+            else
+            {
+                Debug.LogWarning($"<color=red><b>Can't</b></color> go forward!");
+            }
+
+            return result;
+        }
+
+        public string GetCookies(string url)
+        {
+            var result = _webViewObject.Value.GetCookies(url);
+            return result;
         }
 
         private WebViewObject GetWebViewObject()
@@ -187,9 +241,9 @@ namespace Birdhouse.Features.Wrappers.WebView
                 {
                     _webViewObject.Value.EvaluateJS(UseIFrameLoadedJS);
                 }
+                
 #elif UNITY_WEBPLAYER || UNITY_WEBGL
-                _webViewObject.Value.EvaluateJS(
-                    WebPlayerLoadedJS);
+                _webViewObject.Value.EvaluateJS(WebPlayerLoadedJS);
 #endif
             
             _webViewObject.Value.EvaluateJS(NavigatorUserAgentJS);
@@ -206,6 +260,7 @@ namespace Birdhouse.Features.Wrappers.WebView
 #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
             webViewObject.bitmapRefreshCycle = 1;
 #endif
+            
             _webViewObject.Value.SetAlertDialogEnabled(_config.AlertDialogEnabled);
             _webViewObject.Value.SetCameraAccess(_config.CameraAccessRequired);
             _webViewObject.Value.SetMicrophoneAccess(_config.MicrophoneAccessRequired);
@@ -290,5 +345,7 @@ namespace Birdhouse.Features.Wrappers.WebView
 #endif
             yield break;
         }
+
+        public WebViewObject Value => _webViewObject.Value;
     }
 }
