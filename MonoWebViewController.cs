@@ -1,10 +1,10 @@
 using System.Collections;
-using Birdhouse.Extended.WebView.Interfaces;
+using Birdhouse.Extended.WebViewController.Interfaces;
 using UnityEngine;
 
-namespace Birdhouse.Extended.WebView
+namespace Birdhouse.Extended.WebViewController
 {
-    [AddComponentMenu("ESparrow/MonoWebViewController")]
+    [AddComponentMenu("ESparrow/Birdhouse/Extended/WebViewController")]
     public class MonoWebViewController : MonoBehaviour, IWebViewController
     {
         [SerializeField] private SerializableWebViewInitializationConfig config;
@@ -17,11 +17,9 @@ namespace Birdhouse.Extended.WebView
         private IWebViewController _innerController;
 
         private Coroutine _lifetimeCoroutine;
-        private bool _isInitialized = false;
         
         private void Awake()
         {
-            _isInitialized = true;
             _innerController = new WebViewController(config, webViewObject);
             
             DontDestroyOnLoad(this);
@@ -29,12 +27,6 @@ namespace Birdhouse.Extended.WebView
 
         public void OpenUrl(string url)
         {
-            if (!_isInitialized)
-            {
-                var message = $@"Trying to open url {url} before initialized controller!";
-                throw new WebViewException(message);
-            }
-
             _innerController.OpenUrl(url);
 
             if (_lifetimeCoroutine != null)
