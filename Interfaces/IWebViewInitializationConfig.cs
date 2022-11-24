@@ -1,6 +1,6 @@
-using Birdhouse.Extended.WebView.Enums;
+using Birdhouse.Extended.WebViewController.Enums;
 
-namespace Birdhouse.Extended.WebView.Interfaces
+namespace Birdhouse.Extended.WebViewController.Interfaces
 {
     public interface IWebViewInitializationConfig
     {

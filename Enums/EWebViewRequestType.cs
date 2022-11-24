@@ -1,4 +1,4 @@
-namespace Birdhouse.Extended.WebView.Enums
+namespace Birdhouse.Extended.WebViewController.Enums
 {
     public enum EWebViewRequestType
     {

@@ -1,9 +1,9 @@
 using System;
-using Birdhouse.Extended.WebView.Enums;
-using Birdhouse.Extended.WebView.Interfaces;
+using Birdhouse.Extended.WebViewController.Enums;
+using Birdhouse.Extended.WebViewController.Interfaces;
 using UnityEngine;
 
-namespace Birdhouse.Extended.WebView
+namespace Birdhouse.Extended.WebViewController
 {
     [Serializable]
     public class SerializableWebViewInitializationConfig : IWebViewInitializationConfig

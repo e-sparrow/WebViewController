@@ -1,4 +1,4 @@
-namespace Birdhouse.Extended.WebView.Interfaces
+namespace Birdhouse.Extended.WebViewController.Interfaces
 {
     public interface IWebViewBasicAuthInfo
     {

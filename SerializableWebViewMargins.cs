@@ -1,8 +1,8 @@
 using System;
-using Birdhouse.Extended.WebView.Interfaces;
+using Birdhouse.Extended.WebViewController.Interfaces;
 using UnityEngine;
 
-namespace Birdhouse.Extended.WebView
+namespace Birdhouse.Extended.WebViewController
 {
     [Serializable]
     public struct SerializableWebViewMargins : IWebViewMargins

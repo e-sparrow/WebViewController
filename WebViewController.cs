@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
-using Birdhouse.Extended.WebView.Enums;
-using Birdhouse.Extended.WebView.Interfaces;
+using Birdhouse.Extended.WebViewController.Enums;
+using Birdhouse.Extended.WebViewController.Interfaces;
 using UnityEngine;
 using UnityEngine.Networking;
 using Object = UnityEngine.Object;
 
-namespace Birdhouse.Extended.WebView
+namespace Birdhouse.Extended.WebViewController
 {
     public class WebViewController : IWebViewController
     {
