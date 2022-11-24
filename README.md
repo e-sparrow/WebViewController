@@ -1,5 +1,7 @@
 # WebViewController
-WebView implementation based on https://github.com/gree/unity-webview
+WebView handy wrapper to https://github.com/gree/unity-webview solution.
+
+Independent extension to the Birdhouse repository (https://github.com/e-sparrow/Birdhouse)
 
 How to use it?
 
