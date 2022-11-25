@@ -7,11 +7,21 @@ namespace Birdhouse.Extended.WebViewController
     [AddComponentMenu("ESparrow/Birdhouse/Extended/WebViewController")]
     public class MonoWebViewController : MonoBehaviour, IWebViewController
     {
+        [Header("General")]
         [SerializeField] private SerializableWebViewInitializationConfig config;
         
+        [Tooltip("If enabled, you can use device's back button")]
         [SerializeField] private bool enableBackButton;
+        [Tooltip("If enabled, you can close the WebView by back button and continue play your application")]
         [SerializeField] private bool canReturnToGame;
 
+        [Header("Start Link")] 
+        [Tooltip("Should WebView controller open some link on awake?")]
+        [SerializeField] private bool hasStartLink;
+        [Tooltip("Link that we gonna open on awake")]
+        [SerializeField] private string startLink;
+
+        [Header("References")]
         [SerializeField] private WebViewObject webViewObject;
 
         private IWebViewController _innerController;
@@ -21,6 +31,10 @@ namespace Birdhouse.Extended.WebViewController
         private void Awake()
         {
             _innerController = new WebViewController(config, webViewObject);
+            if (hasStartLink)
+            {
+                OpenUrl(startLink);
+            }
             
             DontDestroyOnLoad(this);
         }
